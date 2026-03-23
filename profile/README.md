@@ -3,7 +3,7 @@
 
 ## 📖 프로젝트 개요
 
-**길목(Gilmok)**은 수많은 사용자가 동시에 몰리는 티켓팅 순간에도 서버 다운과 무한 로딩을 방지하고, 공정한 대기 경험을 제공하기 위해 개발된 시스템입니다.
+길목(Gilmok)은 수많은 사용자가 동시에 몰리는 티켓팅 순간에도 서버 다운과 무한 로딩을 방지하고, 공정한 대기 경험을 제공하기 위해 개발된 시스템입니다.
 
 마이크로서비스 아키텍처(MSA)를 도입해 도메인 간 결합도를 낮추고, Redis 기반의 멱등성이 보장되는 대기열 시스템과 AI 기반 지능형 트래픽 제어를 통해 극한의 트래픽 상황에서도 고가용성(HA)을 유지하도록 설계했습니다.
 
@@ -56,16 +56,16 @@
 
 ## ⚙️ 시스템 아키텍처
 
-[![시스템 아키텍처](./image/architecture.png)](./image/architecture.png)
+[![시스템 아키텍처](../image/architecture.png)](../image/architecture.png)
 
 ## 🗂️ ERD
 
-[![ERD](./image/erd.png)](./image/erd.png)
+[![ERD](../image/erd.png)](../image/erd.png)
 
 ## 🖥️ 화면 정의서
 
 
-[![화면 정의서](./image/visily.png)](./image/visily.png)
+[![화면 정의서](../image/visily.png)](../image/visily.png)
 
 ## 🚀 주요 기능 및 핵심 엔지니어링 포인트
 
@@ -109,10 +109,10 @@
 
 |  |  |  |
 |-----------------|-----------------|-----------------|
-| [차건희](https://github.com/gunheecha) | <img src="./image/차건희.png" alt="차건희" width="100"> | <ul><li>CI/CD 파이프라인 구축</li><li>`gateway-repo` 개발</li><li>메트릭/로그 수집 및 관측 환경 구성</li><li>AI 정책 추천 기능 구현</li></ul> |
-| [최지우](https://github.com/zlor0) | <img src="./image/최지우.png" alt="최지우" width="100"> | <ul><li>정책 관리 기능 구현</li><li>관리자 화면 개발</li></ul> |
-| [한재호](https://github.com/hjh009) | <img src="./image/한재호.png" alt="한재호" width="100"> | <ul><li>대기열 시스템 설계 및 구현</li><li>큐 처리 및 대기 순번 로직 개발</li></ul> |
-| [황준현](https://github.com/junhyun1001) | <img src="./image/황준현.png" alt="황준현" width="100"> | <ul><li>인증/인가 기능 구현</li><li>입장 토큰 발급 로직 개발</li></ul> |
+| [차건희](https://github.com/gunheecha) | <img src="../image/차건희.png" alt="차건희" width="100"> | <ul><li>CI/CD 파이프라인 구축</li><li>`gateway-repo` 개발</li><li>메트릭/로그 수집 및 관측 환경 구성</li><li>AI 정책 추천 기능 구현</li></ul> |
+| [최지우](https://github.com/zlor0) | <img src="../image/최지우.png" alt="최지우" width="100"> | <ul><li>정책 관리 기능 구현</li><li>관리자 화면 개발</li></ul> |
+| [한재호](https://github.com/hjh009) | <img src="../image/한재호.png" alt="한재호" width="100"> | <ul><li>대기열 시스템 설계 및 구현</li><li>큐 처리 및 대기 순번 로직 개발</li></ul> |
+| [황준현](https://github.com/junhyun1001) | <img src="../image/황준현.png" alt="황준현" width="100"> | <ul><li>인증/인가 기능 구현</li><li>입장 토큰 발급 로직 개발</li></ul> |
 
 ## 🧪 로컬 실행 방법
 
