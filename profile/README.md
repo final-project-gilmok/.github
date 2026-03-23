@@ -14,6 +14,15 @@
 - 지능형 정책 조율: Prometheus 메트릭과 Gemini 기반 AI 추천으로 적정 입장 허용량 제안
 - 무중단 운영: GitHub Actions와 Nginx 기반의 배포 파이프라인으로 안정적인 운영 환경 구축
 
+## 👥 팀원 소개
+
+|  |  |  |
+|-----------------|-----------------|-----------------|
+| [차건희](https://github.com/gunheecha) | <img src="../image/차건희.png" alt="차건희" width="100"> | <ul><li>CI/CD 파이프라인 구축</li><li>`gateway-repo` 개발</li><li>메트릭/로그 수집 및 관측 환경 구성</li><li>AI 정책 추천 기능 구현</li></ul> |
+| [최지우](https://github.com/zlor0) | <img src="../image/최지우.png" alt="최지우" width="100"> | <ul><li>정책 관리 기능 구현</li><li>관리자 화면 개발</li></ul> |
+| [한재호](https://github.com/hjh009) | <img src="../image/한재호.png" alt="한재호" width="100"> | <ul><li>대기열 시스템 설계 및 구현</li><li>큐 처리 및 대기 순번 로직 개발</li></ul> |
+| [황준현](https://github.com/junhyun1001) | <img src="../image/황준현.png" alt="황준현" width="100"> | <ul><li>인증/인가 기능 구현</li><li>입장 토큰 발급 로직 개발</li></ul> |
+
 ## 🛠 기술 스택
 
 ### Backend
@@ -93,6 +102,39 @@
 - Redis 또는 외부 의존성 문제 발생 시 Fail-Open / Fallback 전략 적용
 - 배포와 운영 환경에서 관측 가능성을 높여 빠른 복구를 지원
 
+## 📈 부하 테스트 결과
+
+- 테스트 도구: `k6 (Grafana)`
+- 테스트 시나리오: `회원가입 -> 로그인 -> 이벤트 조회 -> 대기열 입장`
+- 검증 기준: `p(95) < 5000ms`, `http_req_failed < 10%`
+- 진행 횟수: 총 `10차` 반복 테스트
+
+| 구간 | 결과 |
+| --- | --- |
+| `50 VU` | 대체로 안정적, 실사용 가능한 수준 |
+| `100 VU` | 기능은 유지되지만 SLA 미충족, 병목 지속 |
+
+### 핵심 요약
+
+- 초기 병목은 `auth-repo` 로그인 구간
+- 로그인 timeout 이후 `queue 401` 연쇄 장애 확인
+- `HikariCP 50` 적용 후 로그인 성공률 `68% -> 99%` 개선
+- 인증 병목 완화 이후 병목은 `api-repo`, `queue`, `Redis`로 이동
+- `IP 개별화` 적용 후 `429` 제거
+- `Redis pool + Retry + 비동기 처리` 이후 `500`, `/api/events timeout` 제거
+- 현재 안정 운용 기준은 약 `50 VU`
+
+### 남은 과제
+
+- `100 VU` 구간에서 `503(Q006)` 반복 발생
+- queue position 급증과 p95 지연 지속
+- Redis/Admission 처리량과 서버 스케일아웃 추가 검토 필요
+
+### 인프라 비교
+
+- `AWS` 비교 테스트에서는 HTTP 에러 `0건`
+- `OCI/Aiven` 환경에서 보이던 네트워크 계층 이슈는 재현되지 않음
+
 ## 📦 마이크로서비스 레포지토리 구성
 
 | Repository | Description |
@@ -102,15 +144,6 @@
 | `gateway-repo` | WebFlux 기반 API 라우팅 게이트웨이 |
 | `common-repo` | 여러 서비스에서 함께 사용하는 공통 Java 모듈 |
 | `deploy-repo` | 멀티 클라우드 배포, 모니터링, 운영 스크립트 관리 |
-
-## 👥 팀원 소개
-
-|  |  |  |
-|-----------------|-----------------|-----------------|
-| [차건희](https://github.com/gunheecha) | <img src="../image/차건희.png" alt="차건희" width="100"> | <ul><li>CI/CD 파이프라인 구축</li><li>`gateway-repo` 개발</li><li>메트릭/로그 수집 및 관측 환경 구성</li><li>AI 정책 추천 기능 구현</li></ul> |
-| [최지우](https://github.com/zlor0) | <img src="../image/최지우.png" alt="최지우" width="100"> | <ul><li>정책 관리 기능 구현</li><li>관리자 화면 개발</li></ul> |
-| [한재호](https://github.com/hjh009) | <img src="../image/한재호.png" alt="한재호" width="100"> | <ul><li>대기열 시스템 설계 및 구현</li><li>큐 처리 및 대기 순번 로직 개발</li></ul> |
-| [황준현](https://github.com/junhyun1001) | <img src="../image/황준현.png" alt="황준현" width="100"> | <ul><li>인증/인가 기능 구현</li><li>입장 토큰 발급 로직 개발</li></ul> |
 
 ## 🧪 로컬 실행 방법
 
