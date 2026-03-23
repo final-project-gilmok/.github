@@ -65,7 +65,7 @@
 ## 🖥️ 화면 정의서
 
 
-[![화면 정의서](../image/visily.png)](../image/visily.png)
+[![화면 정의서](../image/Visily.png)](../image/Visily.png)
 
 ## 🚀 주요 기능 및 핵심 엔지니어링 포인트
 
